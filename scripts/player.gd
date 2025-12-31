@@ -11,23 +11,25 @@ enum State {
 
 
 @export_group("Speed Parameters")
-@export var move_speed: float = 400.0 # Directional (x) movement speed
-@export var attack_speed: float = 0.0 # Player attack speed, affected by weapon and class
-@export var parry_speed: float = 0.0 # Speed at which player can parry attacks
+@export var move_speed: float = 400.0 ## Directional (x) movement speed
+@export var attack_speed: float = 0.0 ## Player attack speed, affected by weapon and class
+@export var parry_speed: float = 0.0 ## Speed at which player can parry attacks
 
 @export_group("Strength Parameters")
-@export var attack_damage: float = 0.0 # Player attack strength, affected by weapon and class
-@export var parry_strength: float = 0.0 # Damage reflected after a successful parry
+@export var attack_damage: float = 0.0 ## Player attack strength, affected by weapon and class
+@export var parry_strength: float = 0.0 ## Damage reflected after a successful parry
 
 @export_group("Jump Parameters")
-@export var jump_height: float = 500.0 # Directional (y) jump velocity
-@export var max_gravity_amplifier: float = 2.0 # Player max gravity
+@export var jump_height: float = 500.0 ## Directional (y) jump velocity
+@export var descent_speed: float = 2.5 ## Used for "realism"
+@export var max_descent_speed: float = 10.0 ## Player max descent speed, also used for "realism"
 
 
-var current_state: State = State.IDLE # Used for player processing and transition
+var current_state: State = State.IDLE ## Used for player processing and transition
 
-var direction: float = 0.0 # Movement variable
-var air_time: float = 5.0 # Gravity helper
+var direction: float = 0.0 ## Movement variable
+
+var air_time: float = 0.0 ## Gravity/descent helper
 
 
 func _ready() -> void:
@@ -45,6 +47,7 @@ func _physics_process(delta: float) -> void:
 		State.ATTACKING: _process_attacking()
 		State.PARRYING: _process_parrying()
 
+	# Get player left and right movement
 	direction = Input.get_axis("move_left", "move_right")
 
 	# Transition states
@@ -83,7 +86,12 @@ func _apply_gravity(delta: float) -> void:
 	if is_on_floor():
 		air_time = 0.0
 	else:
-		air_time += delta * 2.5
+		air_time += delta * descent_speed
+
+	# Heavier gravity if pressing down
+	if Input.is_action_pressed("move_down"):
+		air_time = max_descent_speed
+	air_time = min(air_time, max_descent_speed)
 
 	# Apply gravity
-	velocity.y = lerp(velocity.y, get_gravity().y * min(air_time, max_gravity_amplifier), delta)
+	velocity.y = lerp(velocity.y, get_gravity().y * air_time, delta)
