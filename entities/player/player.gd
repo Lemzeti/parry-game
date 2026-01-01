@@ -1,4 +1,6 @@
 class_name Player extends Entity
+# Putting here for no reason at all:
+# To get root node: node.get_tree().root.get_child(0)
 
 
 enum State {
@@ -84,8 +86,8 @@ func _process_jumped() -> void:
 func _process_attacked() -> void:
 	can_attack = false
 	attack_timer.start()
-	weapon.attack(weapon_dir)
-	weapon.player = self
+
+	weapon.attack(self)
 
 
 func _process_parry() -> void:
@@ -111,7 +113,7 @@ func _weapon_stuff() -> void:
 	mouse_pos = get_global_mouse_position()
 
 	# Sets weapon_sprite position to be around the player at weapon_pos_distance
-	weapon_dir = to_local(mouse_pos).normalized() * weapon_pos_distance
+	weapon_dir = (mouse_pos - global_position).normalized() * weapon_pos_distance
 	weapon_sprite.position = weapon_dir
 
 

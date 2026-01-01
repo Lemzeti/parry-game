@@ -4,8 +4,8 @@ class_name GunTest extends Weapon
 const BULLET: PackedScene = preload("res://components/bullet.tscn")
 
 
-func attack(dir: Vector2) -> void:
+func attack(source: Entity) -> void:
 	var bullet: Bullet = BULLET.instantiate()
-	bullet.direction = player.global_position- dir
-	bullet.global_position = player.weapon_sprite.global_position
-	player.get_tree().root.add_child(bullet)
+	bullet.direction = source.weapon_dir
+	bullet.global_position = source.weapon_sprite.global_position
+	source.get_tree().root.get_child(0).add_child(bullet)

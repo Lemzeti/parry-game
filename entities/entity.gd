@@ -30,3 +30,10 @@ func _ready() -> void:
 
 func damage(points: float) -> void:
 	health -= points
+	if health < 0.0:
+		die()
+
+
+func die() -> void:
+	#queue_free()
+	pass

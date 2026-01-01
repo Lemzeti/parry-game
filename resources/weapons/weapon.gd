@@ -7,8 +7,5 @@ class_name Weapon extends Resource
 @export var base_attack_speed: float = 0.0
 
 
-var player: Player = null
-
-
-func attack(dir: Vector2) -> void:
+func attack(source: Entity) -> void:
 	pass
