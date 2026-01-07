@@ -17,8 +17,8 @@ fill_from = Vector2(0, 1)
 script = ExtResource("2_0xm2m")
 name = "Guntest"
 sprite = SubResource("GradientTexture2D_h2yge")
-base_damage = 5.0
-base_attack_speed = 0.5
+damage = 0.0
+attack_speed = 0.0
 metadata/_custom_type_script = "uid://bsfswaibudqrc"
 
 [node name="Main" type="Node2D"]

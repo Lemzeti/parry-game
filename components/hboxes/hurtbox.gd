@@ -10,4 +10,4 @@ class_name Hurtbox extends Area2D
 
 
 func apply_damage(points: float) -> void:
-	actor.damage(points)
+	actor.hit(points)

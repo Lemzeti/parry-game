@@ -16,8 +16,8 @@ fill_from = Vector2(0.0123457, 1)
 script = ExtResource("2_sglur")
 name = "Gun Test"
 sprite = SubResource("GradientTexture2D_0lwar")
-base_damage = 5.0
-base_attack_speed = 1.0
+damage = 0.0
+attack_speed = 0.8
 metadata/_custom_type_script = "uid://dkrcdpmn67x81"
 
 [sub_resource type="Gradient" id="Gradient_sglur"]
@@ -120,8 +120,3 @@ scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_bectd")
 animation = &"idle_front"
 frame_progress = 0.528932
-
-[node name="AttackTimer" type="Timer" parent="."]
-one_shot = true
-
-[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

@@ -17,7 +17,7 @@ class_name Entity extends CharacterBody2D
 @export var parry_speed: float = 0.0 ## Speed at which player can parry attacks
 
 @export_group("Strength Parameters")
-@export var attack_damage: float = 0.0 ## Attack strength (player: affected by weapon and class)
+@export var damage: float = 0.0 ## Attack strength (player: affected by weapon and class)
 
 @export_group("Jump Parameters")
 @export var jump_height: float = 500.0 ## Directional (y) jump velocity
@@ -27,6 +27,7 @@ class_name Entity extends CharacterBody2D
 
 var direction: float = 0.0 ## Movement variable
 var air_time: float = 0.0 ## Gravity/descent helper
+var time_since_attack: float = 0.0 ## Attack speed thing
 
 var can_attack: bool = true
 
@@ -36,21 +37,9 @@ func _ready() -> void:
 		add_to_group("Entities")
 
 
-func _physics_process(delta: float) -> void:
-	_handle_movement(delta)
-	_apply_gravity(delta)
-
-
-func _handle_movement(delta) -> void:
-	pass
-
-
-func _apply_gravity(delta: float) -> void:
-	pass
-
-
-func damage(points: float) -> void:
+func hit(points: float) -> void:
 	health -= points
+	print("%s: Ouch that hurts", name)
 	if health < 0.0:
 		die()
 

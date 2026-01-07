@@ -1,7 +1,7 @@
 class_name Player extends Entity
 
 
-enum State {
+enum PlayerState {
 	IDLE,
 	MOVING,
 	JUMPED,
@@ -14,14 +14,14 @@ enum State {
 @export var weapon_pos_distance: float = 50.0 ## How far weapon is placed from the player
 
 
-var current_state: State = State.IDLE ## Used for player processing and transition
+var current_state: PlayerState = PlayerState.IDLE ## Used for player processing and transition
 
 var mouse_pos: Vector2 = Vector2.ZERO ## Keeps track of global mouse position
-var weapon_dir: Vector2
+var weapon_dir: Vector2 = Vector2.ZERO ## Helps with attacking direction
 
 
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var weapon_sprite: Sprite2D = $WeaponSprite
-@onready var attack_timer: Timer = $AttackTimer
 
 
 func _ready() -> void:
@@ -34,33 +34,39 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	super(delta)
-	_weapon_stuff()
+	_handle_states(delta)
+	_apply_gravity(delta)
+	_weapon_sprite_rotation()
+	_player_sprite_face()
 
 	move_and_slide()
 
 
-func _handle_movement(delta: float) -> void:
+func _handle_states(delta: float) -> void:
 	# Process states
 	match current_state:
-		State.IDLE: _process_idle()
-		State.MOVING: _process_moving()
-		State.JUMPED: _process_jumped()
-		State.ATTACKED: _process_attacked()
-		State.PARRY: _process_parry()
+		PlayerState.IDLE: _process_idle()
+		PlayerState.MOVING: _process_moving()
+		PlayerState.JUMPED: _process_jumped()
+		PlayerState.ATTACKED: _process_attacked()
+		PlayerState.PARRY: _process_parry()
 
 	# Get player left and right movement
 	direction = Input.get_axis("move_left", "move_right")
 
+	# Attacking condition
+	time_since_attack += delta
+	can_attack = true if time_since_attack >= attack_speed else false
+
 	# Transition states
 	if Input.is_action_pressed("attack") and can_attack:
-		current_state = State.ATTACKED
+		current_state = PlayerState.ATTACKED
 	elif Input.is_action_just_pressed("jump") and is_on_floor():
-		current_state = State.JUMPED
+		current_state = PlayerState.JUMPED
 	elif direction != 0.0:
-		current_state = State.MOVING
+		current_state = PlayerState.MOVING
 	else:
-		current_state = State.IDLE
+		current_state = PlayerState.IDLE
 
 
 func _apply_gravity(delta: float) -> void:
@@ -79,9 +85,8 @@ func _apply_gravity(delta: float) -> void:
 
 
 func _initialize_weapon() -> void:
-	attack_timer.wait_time = attack_speed
 	weapon_sprite.texture = weapon.sprite
-	attack_damage += weapon.base_damage
+	weapon.apply_stats(self)
 
 
 func _process_idle() -> void:
@@ -98,9 +103,7 @@ func _process_jumped() -> void:
 
 
 func _process_attacked() -> void:
-	can_attack = false
-	attack_timer.start()
-
+	time_since_attack = 0.0
 	weapon.attack(self)
 
 
@@ -108,7 +111,7 @@ func _process_parry() -> void:
 	pass
 
 
-func _weapon_stuff() -> void:
+func _weapon_sprite_rotation() -> void:
 	mouse_pos = get_global_mouse_position()
 
 	# Sets weapon_sprite position to be around the player at weapon_pos_distance
@@ -116,5 +119,6 @@ func _weapon_stuff() -> void:
 	weapon_sprite.position = weapon_dir
 
 
-func _on_attack_timer_timeout() -> void:
-	can_attack = true
+func _player_sprite_face() -> void:
+	# Sprite faces mouse position
+	sprite.flip_h = mouse_pos.x < position.x
