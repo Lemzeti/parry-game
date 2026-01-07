@@ -26,3 +26,5 @@ metadata/_custom_type_script = "uid://ypd7coflk64r"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_omyih")
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_hurtbox_entered"]

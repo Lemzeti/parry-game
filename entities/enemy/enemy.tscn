@@ -33,8 +33,9 @@ metadata/_custom_type_script = "uid://hv2sabeacfbg"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3fvr7")
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("2_3fvr7")
+actor = NodePath("..")
 metadata/_custom_type_script = "uid://tpyw4lhoxasm"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]

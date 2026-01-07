@@ -110,7 +110,8 @@ texture = SubResource("GradientTexture2D_bls4j")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_g2els")
 
-[node name="Hurtbox" parent="." instance=ExtResource("2_abrql")]
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("2_abrql")]
+actor = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_sglur")
