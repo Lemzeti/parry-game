@@ -6,6 +6,9 @@ enum PlayerState {
 	MOVING,
 	JUMPED,
 	ATTACKED,
+	ACTIVATED_SKILL_ONE,
+	ACTIVATED_SKILL_TWO,
+	ACTIVATED_ULTIMATE_SKILL,
 	PARRY,
 }
 
@@ -49,6 +52,9 @@ func _handle_states(delta: float) -> void:
 		PlayerState.MOVING: _process_moving()
 		PlayerState.JUMPED: _process_jumped()
 		PlayerState.ATTACKED: _process_attacked()
+		PlayerState.ACTIVATED_SKILL_ONE: _process_skill_one()
+		PlayerState.ACTIVATED_SKILL_TWO: _process_skill_two()
+		PlayerState.ACTIVATED_ULTIMATE_SKILL: _process_ultimate_skill()
 		PlayerState.PARRY: _process_parry()
 
 	# Get player left and right movement
@@ -59,7 +65,13 @@ func _handle_states(delta: float) -> void:
 	can_attack = true if time_since_attack >= attack_speed else false
 
 	# Transition states
-	if Input.is_action_pressed("attack") and can_attack:
+	if Input.is_action_just_pressed("skill_ultimate"):
+		current_state = PlayerState.ACTIVATED_ULTIMATE_SKILL
+	elif Input.is_action_just_pressed("skill_two"):
+		current_state = PlayerState.ACTIVATED_SKILL_TWO
+	elif Input.is_action_just_pressed("skill_one"):
+		current_state = PlayerState.ACTIVATED_SKILL_ONE
+	elif Input.is_action_pressed("attack") and can_attack:
 		current_state = PlayerState.ATTACKED
 	elif Input.is_action_just_pressed("jump") and is_on_floor():
 		current_state = PlayerState.JUMPED
@@ -104,6 +116,18 @@ func _process_jumped() -> void:
 func _process_attacked() -> void:
 	time_since_attack = 0.0
 	weapon.attack()
+
+
+func _process_skill_one() -> void:
+	pass
+
+
+func _process_skill_two() -> void:
+	pass
+
+
+func _process_ultimate_skill() -> void:
+	pass
 
 
 func _process_parry() -> void:

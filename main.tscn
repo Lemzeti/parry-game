@@ -70,7 +70,7 @@ position = Vector2(576, 324)
 weapon_pos_distance = 25.0
 damage = 5.0
 
-[node name="Enemy" parent="." instance=ExtResource("3_h2yge")]
+[node name="Enemy1" parent="." instance=ExtResource("3_h2yge")]
 position = Vector2(377, 411)
 
 [node name="Enemy2" parent="." instance=ExtResource("3_h2yge")]

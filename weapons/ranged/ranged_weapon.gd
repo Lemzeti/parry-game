@@ -19,7 +19,7 @@ func attack() -> void:
 	if projectile_scene == null:
 		print("projectile_scene is null (res://weapons/ranged/ranged_weapon.gd)")
 		return
-	print("Shooting shots")
+	#print("Shooting shots")
 
 	var projectile: Projectile = projectile_scene.instantiate()
 
