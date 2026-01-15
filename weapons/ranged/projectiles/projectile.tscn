@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvd8ggkwdajdm"]
 
 [ext_resource type="Script" uid="uid://ypd7coflk64r" path="res://components/hboxes/hitbox.gd" id="1_jdofu"]
-[ext_resource type="Script" uid="uid://d4ciyjvt08y3u" path="res://components/bullet.gd" id="1_omyih"]
+[ext_resource type="Script" uid="uid://d4ciyjvt08y3u" path="res://weapons/ranged/projectiles/projectile.gd" id="1_omyih"]
 
 [sub_resource type="Gradient" id="Gradient_omyih"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -13,7 +13,7 @@ fill_from = Vector2(0, 0.972222)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omyih"]
 size = Vector2(4, 4)
 
-[node name="Bullet" type="CharacterBody2D"]
+[node name="Projectile" type="CharacterBody2D"]
 script = ExtResource("1_omyih")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

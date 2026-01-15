@@ -11,12 +11,12 @@ class_name Weapon extends Sprite2D
 @export var weapon_name: String = ""
 
 @export_group("Stat Multipliers")
-@export var damage: float = 0.0 ## Higher = stronger
-@export_range(0.0, 1.0, 0.01) var attack_speed: float = 0.0 ## Less = faster
+@export var damage: float = 1.0 ## Higher = stronger
+@export_range(0.0, 2.0, 0.01) var attack_speed: float = 1.0 ## Less = faster
 # ^^^ Should very much change how this works ^^^
 
 
-func apply_stats() -> void:
+func apply_multipliers() -> void:
 	actor.damage *= damage
 	actor.attack_speed *= attack_speed
 
