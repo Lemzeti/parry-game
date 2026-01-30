@@ -28,6 +28,8 @@ func _on_hitbox_entered(hurtbox: Hurtbox) -> void:
 
 
 func _friendly_fire(hurtbox: Hurtbox) -> bool:
+	print(hurtbox.actor.name)
+	print(actor.fired_by.name)
 	if hurtbox.actor == actor.fired_by:
 		#print("No friendly fire pls (%s's hitbox)" % actor.name)
 		return true

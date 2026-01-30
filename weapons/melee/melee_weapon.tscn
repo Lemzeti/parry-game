@@ -1,10 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwx100i7mr6wd"]
+[gd_scene load_steps=5 format=3 uid="uid://cu774occvrmx5"]
 
 [ext_resource type="PackedScene" uid="uid://uqdv2bd2k762" path="res://weapons/weapon.tscn" id="1_co26f"]
 [ext_resource type="Script" uid="uid://dq5u3ekk27fs1" path="res://weapons/melee/melee_weapon.gd" id="2_ffe0d"]
 
 [sub_resource type="Gradient" id="Gradient_ffe0d"]
-offsets = PackedFloat32Array(0, 0.79532164, 1)
+offsets = PackedFloat32Array(0, 0.795322, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_cs8er"]
@@ -15,4 +15,6 @@ fill_from = Vector2(0, 1)
 
 [node name="MeleeWeapon" instance=ExtResource("1_co26f")]
 script = ExtResource("2_ffe0d")
+swing_strength = 0.0
+swing_speed = 0.0
 weapon_sprite = SubResource("GradientTexture2D_cs8er")

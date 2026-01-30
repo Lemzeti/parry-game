@@ -1,8 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://cflw0exn7ewr5"]
+[gd_scene load_steps=11 format=3 uid="uid://cflw0exn7ewr5"]
 
 [ext_resource type="Script" uid="uid://ciq014gxd5ywj" path="res://entities/enemy/enemy.gd" id="1_3fvr7"]
 [ext_resource type="Script" uid="uid://tpyw4lhoxasm" path="res://components/hboxes/hurtbox.gd" id="2_3fvr7"]
+[ext_resource type="PackedScene" uid="uid://cvd8ggkwdajdm" path="res://weapons/ranged/projectiles/projectile.tscn" id="2_4wwj3"]
 [ext_resource type="Texture2D" uid="uid://dy0vb6m8u7ffc" path="res://assets/player/monarch-idle.png" id="2_dt443"]
+[ext_resource type="Script" uid="uid://b6nqc8i2ex3n5" path="res://weapons/ranged/ranged_weapon.gd" id="3_d50e0"]
+
+[sub_resource type="Resource" id="Resource_61ikd"]
+script = ExtResource("3_d50e0")
+projectile_scene = ExtResource("2_4wwj3")
+weapon_name = "Ranged"
+damage = 1.0
+attack_speed = 1.0
+metadata/_custom_type_script = "uid://b6nqc8i2ex3n5"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fvr7"]
 size = Vector2(32, 32)
@@ -27,6 +37,7 @@ animations = [{
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_3fvr7")
+weapon = SubResource("Resource_61ikd")
 move_speed = 150.0
 metadata/_custom_type_script = "uid://hv2sabeacfbg"
 
@@ -45,3 +56,5 @@ shape = SubResource("RectangleShape2D_dt443")
 modulate = Color(1, 0.370579, 0.181124, 1)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_d50e0")
+
+[node name="Weapon" type="Sprite2D" parent="."]

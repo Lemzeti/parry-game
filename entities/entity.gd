@@ -19,7 +19,7 @@ class_name Entity extends CharacterBody2D
 @export var parry_speed: float = 0.0 ## Speed at which player can parry attacks
 
 @export_group("Strength Parameters")
-@export var damage: float = 0.0 ## Attack strength (player: affected by weapon and class)
+@export var damage: float = 5.0 ## Attack strength (player: affected by weapon and class)
 
 @export_group("Jump Parameters")
 @export var jump_height: float = 500.0 ## Directional (y) jump velocity

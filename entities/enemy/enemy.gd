@@ -19,8 +19,11 @@ enum EnemyState {
 
 var current_state: EnemyState = EnemyState.IDLE
 
+var attack_dir: Vector2 = Vector2.ZERO
+
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var weapon_node: Sprite2D = $Weapon
 
 
 func _physics_process(delta: float) -> void:
@@ -65,7 +68,7 @@ func _process_moving() -> void:
 
 func _process_attacked() -> void:
 	time_since_attack = 0.0
-	weapon.attack()
+	weapon.attack(self)
 
 
 func _process_jumped() -> void:
@@ -85,3 +88,6 @@ func _apply_gravity(delta: float) -> void:
 func _enemy_sprite_face() -> void:
 	# Sprite faces player
 	sprite.flip_h = player.global_position.x < position.x
+
+	# Weapon aim
+	attack_dir = (player.global_position - global_position).normalized()

@@ -1,11 +1,4 @@
-class_name Weapon extends Sprite2D
-
-
-@export var actor: Entity:
-	get:
-		if not actor:
-			actor = get_parent()
-		return actor
+class_name Weapon extends Resource
 
 
 @export var weapon_name: String = ""
@@ -17,14 +10,10 @@ class_name Weapon extends Sprite2D
 # ^^^ Should very much change how this works ^^^
 
 
-func _ready() -> void:
-	texture = weapon_sprite
+func apply_multipliers(entity: Entity) -> void:
+	entity.damage *= damage
+	entity.attack_speed *= attack_speed
 
 
-func apply_multipliers() -> void:
-	actor.damage *= damage
-	actor.attack_speed *= attack_speed
-
-
-func attack() -> void:
+func attack(attacker: Entity) -> void:
 	pass

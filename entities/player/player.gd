@@ -23,6 +23,7 @@ var weapon_dir: Vector2 = Vector2.ZERO ## Helps with attacking direction
 
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var weapon_node: Sprite2D = $Weapon
 
 
 func _ready() -> void:
@@ -96,7 +97,8 @@ func _apply_gravity(delta: float) -> void:
 
 
 func _initialize_weapon() -> void:
-	weapon.apply_multipliers()
+	weapon_node.texture = weapon.weapon_sprite if weapon.weapon_sprite != null else null
+	weapon.apply_multipliers(self)
 
 
 func _process_idle() -> void:
@@ -114,7 +116,7 @@ func _process_jumped() -> void:
 
 func _process_attacked() -> void:
 	time_since_attack = 0.0
-	weapon.attack()
+	weapon.attack(self)
 
 
 func _process_skill_one() -> void:
@@ -136,7 +138,7 @@ func _process_parry() -> void:
 func _weapon_sprite_rotation() -> void:
 	# Sets weapon_sprite position to be around the player at weapon_pos_distance
 	weapon_dir = (get_global_mouse_position() - global_position).normalized() * weapon_pos_distance
-	weapon.position = weapon_dir
+	weapon_node.position = weapon_dir
 
 
 func _player_sprite_face() -> void:
