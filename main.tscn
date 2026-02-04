@@ -71,6 +71,9 @@ weapon_pos_distance = 25.0
 immunity_frames = 0.15
 
 [node name="Enemy1" parent="." instance=ExtResource("3_h2yge")]
-position = Vector2(377, 411)
+position = Vector2(784, 454)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_h2yge")]
+position = Vector2(449, 396)
 
 [node name="Projectiles" type="Node2D" parent="." groups=["ProjectilesGroup"]]
